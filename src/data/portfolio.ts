@@ -36,9 +36,6 @@ export const heroWords = [
   { text: "is a", bold: false },
   { text: "full-stack", bold: false },
   { text: "developer", bold: false },
-  { text: "and co-founder", bold: false },
-  { text: "building", bold: false },
-  { text: "Codyza", bold: false, href: "https://codyza.com" },
 ];
 
 export const navLinks = [
