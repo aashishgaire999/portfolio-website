@@ -73,8 +73,11 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             variants={stagger(0.06)}
-            className="flex flex-wrap gap-2 mb-7"
+            className="flex flex-wrap items-center gap-2 mb-7"
           >
+            <motion.span variants={fadeUp} className="hero-focus-label">
+              Core stack
+            </motion.span>
             {heroFocus.map((item) => (
               <motion.span
                 key={item}

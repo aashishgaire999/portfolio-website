@@ -188,6 +188,26 @@ body {
   decoration-color: #2dd4bf;
 }
 
+.hero-focus-label {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.32);
+  margin-right: 2px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-focus-label::after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  margin-left: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
 .hero-focus-chip {
   font-family: var(--font-jetbrains), monospace;
   font-size: 11px;

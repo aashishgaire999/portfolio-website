@@ -3,7 +3,7 @@ export const profile = {
   firstName: "Ashish",
   lastName: "Gaire",
   title: "Co-Founder @ Codyza · Next.js & AI",
-  tagline: "Ships production apps with Gemini, Supabase, and zero-to-one speed.",
+  tagline: "I turn ideas into shipped, AI-powered web apps — fast, and built to last.",
   email: "gaireashish64@gmail.com",
   github: "https://github.com/aashishgaire999",
   githubUsername: "aashishgaire999",
