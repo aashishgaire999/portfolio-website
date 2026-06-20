@@ -31,7 +31,7 @@ export const stats = [
 
 export const heroFocus = ["Next.js", "TypeScript", "Supabase", "Gemini AI"];
 
-export const heroWords = [
+export const heroWords: { text: string; bold: boolean; href?: string }[] = [
   { text: "Ashish Gaire", bold: true },
   { text: "is a", bold: false },
   { text: "full-stack", bold: false },
