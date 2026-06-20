@@ -4,10 +4,13 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { heroWords, heroFocus, profile, stats } from "@/data/portfolio";
 import { easeOut, fadeUp, stagger } from "@/lib/motion";
+import { useResume } from "@/components/ResumeModal";
 
 const HeroVisual = dynamic(() => import("@/components/HeroVisual"), { ssr: false });
 
 export default function Hero() {
+  const { open: openResume } = useResume();
+
   return (
     <section className="min-h-[82vh] flex flex-col justify-center py-10 lg:py-16 mb-4">
       <div className="grid lg:grid-cols-[1fr_340px] gap-8 lg:gap-12 items-center">
@@ -107,6 +110,15 @@ export default function Hero() {
             >
               Get in Touch
             </motion.a>
+            <motion.button
+              type="button"
+              onClick={openResume}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="btn-ghost"
+            >
+              Résumé
+            </motion.button>
           </motion.div>
 
           <motion.div

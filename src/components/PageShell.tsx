@@ -10,12 +10,13 @@ import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import FooterRauno from "@/components/FooterRauno";
 import ScrollProgress from "@/components/ScrollProgress";
+import { ResumeProvider } from "@/components/ResumeModal";
 
 const AmbientScene = dynamic(() => import("@/components/AmbientScene"), { ssr: false });
 
 export default function PageShell() {
   return (
-    <>
+    <ResumeProvider>
       {/* Premium ambient 3D background */}
       <AmbientScene />
       <div className="ambient-glow" aria-hidden />
@@ -34,6 +35,6 @@ export default function PageShell() {
           <FooterRauno />
         </div>
       </main>
-    </>
+    </ResumeProvider>
   );
 }

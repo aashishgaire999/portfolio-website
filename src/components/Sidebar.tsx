@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, profile, socialLinks } from "@/data/portfolio";
 import { easeOut } from "@/lib/motion";
+import { useResume } from "@/components/ResumeModal";
 
 const menuVariants = {
   hidden: { opacity: 0, clipPath: "inset(0 0 100% 0)" },
@@ -21,6 +22,7 @@ const menuVariants = {
 
 export default function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { open: openResume } = useResume();
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -92,6 +94,22 @@ export default function Sidebar() {
                     <span>{link.label}</span>
                   </motion.a>
                 ))}
+                <motion.button
+                  type="button"
+                  initial={{ opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ delay: 0.08 + navLinks.length * 0.07, duration: 0.45, ease: easeOut }}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    openResume();
+                  }}
+                  className="menu-nav-link group text-left"
+                >
+                  <span className="menu-nav-indicator" />
+                  <span className="text-[#2dd4bf]/80 font-mono text-sm sm:text-base">05.</span>
+                  <span>Résumé</span>
+                </motion.button>
               </nav>
 
               <motion.div
