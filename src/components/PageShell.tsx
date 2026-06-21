@@ -10,6 +10,7 @@ import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import FooterRauno from "@/components/FooterRauno";
 import ScrollProgress from "@/components/ScrollProgress";
+import ThemePrompt from "@/components/ThemePrompt";
 import { ResumeProvider } from "@/components/ResumeModal";
 
 const AmbientScene = dynamic(() => import("@/components/AmbientScene"), { ssr: false });
@@ -24,6 +25,7 @@ export default function PageShell() {
       <ScrollProgress />
 
       <Sidebar />
+      <ThemePrompt />
 
       <main className="content-surface min-h-screen pt-20 pb-16">
         <div className="page-inner">

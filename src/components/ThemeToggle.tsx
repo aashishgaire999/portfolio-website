@@ -3,32 +3,26 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { easeOut } from "@/lib/motion";
-
-type Theme = "light" | "dark";
-
-function getInitialTheme(): Theme {
-  if (typeof document === "undefined") return "light";
-  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-}
+import { applyTheme, getCurrentTheme, type Theme } from "@/lib/theme";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setTheme(getInitialTheme());
+    setTheme(getCurrentTheme());
     setMounted(true);
+
+    const observer = new MutationObserver(() => setTheme(getCurrentTheme()));
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
   }, []);
 
   const toggle = () => {
-    const next: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {
-      /* ignore */
-    }
+    applyTheme(theme === "dark" ? "light" : "dark");
   };
 
   const isDark = theme === "dark";
