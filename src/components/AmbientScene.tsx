@@ -1,9 +1,27 @@
 "use client";
 
-import { useRef, useMemo, Suspense } from "react";
+import { useRef, useMemo, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, Sparkles, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
+
+function useIsDark() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const read = () =>
+      setIsDark(document.documentElement.dataset.theme === "dark");
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+}
 
 function useMouseParallax(factor = 0.15) {
   const { camera } = useThree();
@@ -72,7 +90,7 @@ function NeuralNetwork() {
   );
 }
 
-function BackgroundOrb() {
+function BackgroundOrb({ isDark }: { isDark: boolean }) {
   const ref = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
@@ -81,35 +99,39 @@ function BackgroundOrb() {
     ref.current.rotation.y = state.clock.elapsedTime * 0.08;
   });
 
+  // Light mode keeps the original indigo; dark mode uses a warm amber tone.
+  const color = isDark ? "#f59e0b" : "#6366f1";
+  const emissive = isDark ? "#b45309" : "#4338ca";
+
   return (
     <Float speed={0.8} floatIntensity={0.3}>
       <mesh ref={ref} position={[5, 0.5, -2]} scale={3.5}>
         <icosahedronGeometry args={[1, 1]} />
         <MeshDistortMaterial
-          color="#6366f1"
-          emissive="#4338ca"
-          emissiveIntensity={0.25}
+          color={color}
+          emissive={emissive}
+          emissiveIntensity={isDark ? 0.35 : 0.25}
           roughness={0.4}
           metalness={0.6}
           distort={0.2}
           speed={1.5}
           wireframe
           transparent
-          opacity={0.32}
+          opacity={isDark ? 0.4 : 0.32}
         />
       </mesh>
     </Float>
   );
 }
 
-function Scene() {
+function Scene({ isDark }: { isDark: boolean }) {
   useMouseParallax(0.4);
   return (
     <>
       <ambientLight intensity={0.6} />
       <pointLight position={[5, 5, 5]} intensity={0.8} color="#2dd4bf" />
       <NeuralNetwork />
-      <BackgroundOrb />
+      <BackgroundOrb isDark={isDark} />
       <Sparkles count={60} scale={16} size={2} speed={0.18} color="#2dd4bf" opacity={0.55} />
       <Sparkles count={30} scale={12} size={1.4} speed={0.12} color="#818cf8" opacity={0.4} />
     </>
@@ -117,6 +139,7 @@ function Scene() {
 }
 
 export default function AmbientScene() {
+  const isDark = useIsDark();
   return (
     <div className="ambient-scene-wrap" aria-hidden>
       <Canvas
@@ -126,7 +149,7 @@ export default function AmbientScene() {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <Scene />
+          <Scene isDark={isDark} />
         </Suspense>
       </Canvas>
     </div>
