@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, profile, socialLinks } from "@/data/portfolio";
 import { easeOut } from "@/lib/motion";
 import { useResume } from "@/components/ResumeModal";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const menuVariants = {
   hidden: { opacity: 0, clipPath: "inset(0 0 100% 0)" },
@@ -41,7 +42,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <header className="site-header fixed top-0 left-0 right-0 z-50 py-4 bg-[#ededed]/85 backdrop-blur-md border-b border-black/[0.06]">
+      <header className="site-header fixed top-0 left-0 right-0 z-50 py-4 backdrop-blur-md border-b border-black/[0.06]">
         <div className="site-header-inner">
           <motion.a
             href="#"
@@ -51,16 +52,19 @@ export default function Sidebar() {
           >
             AG
           </motion.a>
-          <motion.button
-            onClick={() => setMenuOpen(!menuOpen)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`menu-toggle font-mono uppercase tracking-[0.2em] transition-colors ${menuOpen ? "menu-toggle-open" : ""}`}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen ? "Close" : "Menu"}
-          </motion.button>
+          <div className="flex items-center gap-2.5">
+            <ThemeToggle />
+            <motion.button
+              onClick={() => setMenuOpen(!menuOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`menu-toggle font-mono uppercase tracking-[0.2em] transition-colors ${menuOpen ? "menu-toggle-open" : ""}`}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              {menuOpen ? "Close" : "Menu"}
+            </motion.button>
+          </div>
         </div>
       </header>
 
@@ -71,7 +75,7 @@ export default function Sidebar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="site-menu fixed inset-0 z-40 bg-[#ededed]/97 backdrop-blur-xl overflow-hidden"
+            className="site-menu fixed inset-0 z-40 backdrop-blur-xl overflow-hidden"
           >
             <div className="menu-orb menu-orb-a" aria-hidden />
             <div className="menu-orb menu-orb-b" aria-hidden />

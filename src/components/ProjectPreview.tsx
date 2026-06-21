@@ -33,19 +33,19 @@ export default function ProjectPreview({
     previewImage ?? (siteUrl && !imgError ? screenshotUrl(siteUrl) : null);
 
   return (
-    <div className="project-preview relative rounded-lg overflow-hidden aspect-[4/3] md:aspect-auto md:h-full min-h-[120px] border border-black/[0.08] bg-[#f5f5f5] shadow-sm">
+    <div className="project-preview relative rounded-lg overflow-hidden aspect-[4/3] md:aspect-auto md:h-full min-h-[120px] border border-[#000]/[0.08] bg-[#f5f5f5] shadow-sm">
       {/* Browser chrome */}
-      <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#ebebeb] border-b border-black/[0.06] shrink-0 z-10 relative">
+      <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#ebebeb] border-b border-[#000]/[0.06] shrink-0 z-10 relative">
         <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
         <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
         <span className="w-2 h-2 rounded-full bg-[#28c840]" />
-        <span className="ml-1 flex-1 truncate font-mono text-[8px] text-black/30 px-2 py-0.5 bg-white/80 rounded">
+        <span className="ml-1 flex-1 truncate font-mono text-[8px] text-[#000]/30 px-2 py-0.5 bg-[#fff]/80 rounded">
           {siteUrl?.replace(/^https?:\/\//, "") ?? name.toLowerCase()}
         </span>
       </div>
 
       {/* Preview body */}
-      <div className="relative overflow-hidden bg-white min-h-[100px] md:min-h-[140px] flex-1">
+      <div className="relative overflow-hidden bg-[#fff] min-h-[100px] md:min-h-[140px] flex-1">
         {imageSrc ? (
           <Image
             src={imageSrc}
@@ -61,17 +61,17 @@ export default function ProjectPreview({
             className="absolute inset-0 flex flex-col items-center justify-center"
             style={{ background: gradient }}
           >
-            <span className="text-white/90 font-medium text-sm">{name}</span>
-            <span className="text-white/40 text-[10px] font-mono mt-1 uppercase tracking-wider">
+            <span className="text-[#fff]/90 font-medium text-sm">{name}</span>
+            <span className="text-[#fff]/40 text-[10px] font-mono mt-1 uppercase tracking-wider">
               {label}
             </span>
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000]/15 via-transparent to-transparent pointer-events-none" />
       </div>
 
-      <span className="absolute top-8 left-2 font-mono text-[10px] text-white/90 bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded z-10">
+      <span className="absolute top-8 left-2 font-mono text-[10px] text-[#fff]/90 bg-[#000]/50 backdrop-blur-sm px-2 py-0.5 rounded z-10">
         {year}
       </span>
     </div>
